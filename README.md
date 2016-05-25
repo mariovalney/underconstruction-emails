@@ -5,3 +5,6 @@ Mostre uma página de "Em construção" para os usuários que não estão logado
 
 1. Fazer download do plugin para a pasta wp-content/plugins
 2. Activar o plugin na dashboard
+
+Código original por @mariovalney
+Refactorização por @sousatg
