@@ -27,14 +27,19 @@ jQuery(document).ready(function($) {
         
             formElement.addClass('submiting');        
 
-            var emailValue = formElement.find('#customerEmail').val();            
+            var emailValue = formElement.find('#customerEmail').val();
+            var nonceValue = formElement.find('#uc-add-registry-security').val();            
 
             statusElement.removeClass('ok error').addClass('loading').find('.msg').text('Enviando...');
 
             $.ajax({
                 url: ajaxurl,
                 type: 'POST',
-                data: {action: 'save_registry', email: emailValue}
+                data: {
+                    action: 'save_registry',
+                    email: emailValue,
+                    uc_nonce: nonceValue
+                }
             })
             .done(function(data) {
                 formElement.removeClass('submiting');
@@ -44,7 +49,7 @@ jQuery(document).ready(function($) {
                     statusElement.removeClass('ok error').addClass(data.status).find('.msg').text(data.msg);
                 } else {
                     formElement.find('.form-control-feedback').hide();
-                    statusElement.removeClass('ok error').addClass('error').find('.msg').text('Enviando mensagem...');
+                    statusElement.removeClass('ok error').addClass('error').find('.msg').text('Ops... Houve um erro. Por favor, tente novamente.');
                 }
             })
             .fail(function() {

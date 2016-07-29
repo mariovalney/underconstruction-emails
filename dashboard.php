@@ -1,11 +1,11 @@
 <?php
     $show_notice = false;
 
-    if (isset($_POST['submit_options'])) {
-        if (isset($_POST['jg_uc_is_active']) && $_POST['jg_uc_is_active'] == '1') {
-            update_option('jg_uc_is_active', '1', true);
+    if ( isset( $_POST['submit_options'] ) ) {
+        if ( isset( $_POST['jg_uc_is_active'] ) && $_POST['jg_uc_is_active'] == '1' ) {
+            update_option( 'jg_uc_is_active', '1', true );
         } else {
-            update_option('jg_uc_is_active', '0', true);
+            update_option( 'jg_uc_is_active', '0', true );
         }
 
         $show_notice = true;
@@ -201,15 +201,15 @@
 <div class="wrap about-wrap jg-underconstruction-dashboard">
     <div class="col one-col" style="overflow: hidden;">
         <h1 class="sf-title">
-            <strong>Under Construction E-mails</strong><sup class="version">BETA</sup>
+            <strong>Under Construction E-mails</strong><sup class="version">1.0</sup>
         </h1>
 
         <section class="sf-review">
-            <p>Algum comentário?<br>Mande-nos um <a href="mailto:mariovalney@gmail.com">e-mail</a>.</p>
+            <p>Algum comentário?<br>Mande-nos um <a href="mailto:contato@mariovalney.com">e-mail</a>.</p>
         </section>
 
         <?php 
-            if ($show_notice) : ?>
+            if ( $show_notice ) : ?>
             
                 <div class="jg-notice">
                     <p><?php echo $show_notice_text ?></p>
@@ -237,11 +237,11 @@
         <div class="col boxed config">
             <h2>Configurações</h2>
             <?php
-                $jg_uc_is_active = get_option('jg_uc_is_active', '0');
+                $jg_uc_is_active = get_option( 'jg_uc_is_active', '0' );
             ?>
             <form action="" method="POST">
                 <label>
-                    <input name="jg_uc_is_active" id="jg_uc_is_active" type="checkbox" value="1" <?php checked(1, $jg_uc_is_active); ?> />
+                    <input name="jg_uc_is_active" id="jg_uc_is_active" type="checkbox" value="1" <?php checked( 1, $jg_uc_is_active ); ?> />
                     Ativar página "Em construção"
                 </label>
                 <p class="submit">
@@ -256,23 +256,23 @@
                     'posts_per_page'   => -1,
                     'meta_key'         => '_jg_uc_registry_email',
                     'post_type'        => 'jg_uc_registries',
-                    'post_status'      => 'publish'
+                    'post_status'      => 'publish',
                 );
 
-                $registries = get_posts($args);
+                $registries = get_posts( $args );
             ?>
 
-            <?php if (count($registries) > 0 ) :?>
+            <?php if ( count( $registries ) > 0 ) :?>
                 <h2>Lista de Registros</h2>
                 <ul class="registries-details">
-                    <li class="count"><?php echo count($registries) ?> Registro(s) encontrado(s)</li>
+                    <li class="count"><?php echo count( $registries ) ?> Registro(s) encontrado(s)</li>
                     <li>Exportar para: <a id="export-csv" href="<?php echo jg_uc_get_asset('export-csv.php'); ?>" target="_blank">CSV</a></li>
                 </ul>
                 <ul class="registries-list">
                     <?php 
-                        foreach ($registries as $registry) {
-                            $email = get_post_meta($registry->ID, '_jg_uc_registry_email', true);
-                            $date = mysql2date('d/m/Y', $registry->post_date);
+                        foreach ( $registries as $registry ) {
+                            $email = get_post_meta( $registry->ID, '_jg_uc_registry_email', true );
+                            $date = mysql2date( 'd/m/Y', $registry->post_date );
 
                             echo '<li>' . $email . '<span>(' . $date . ')</span></li>';
                         }
